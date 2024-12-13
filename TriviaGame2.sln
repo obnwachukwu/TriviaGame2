@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TriviaGame2", "TriviaGame2\TriviaGame2.csproj", "{E374981C-8DB5-485F-BD26-7DBCB54CAA71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E374981C-8DB5-485F-BD26-7DBCB54CAA71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E374981C-8DB5-485F-BD26-7DBCB54CAA71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E374981C-8DB5-485F-BD26-7DBCB54CAA71}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{E374981C-8DB5-485F-BD26-7DBCB54CAA71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E374981C-8DB5-485F-BD26-7DBCB54CAA71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E374981C-8DB5-485F-BD26-7DBCB54CAA71}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B7862810-0515-4A44-B7BF-AE93D6516FB5}
+	EndGlobalSection
+EndGlobal
