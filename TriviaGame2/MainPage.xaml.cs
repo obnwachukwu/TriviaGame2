@@ -1,54 +1,58 @@
-﻿namespace TriviaGame2
+﻿using System;
+using Microsoft.Maui.Controls;
+
+namespace TriviaGame2
 {
     public partial class MainPage : ContentPage
     {
-
         public MainPage()
         {
             InitializeComponent();
         }
 
-        // Event handler for when the Start Game button is clicked
-        private void OnStartGameClicked(object sender, EventArgs e)
+        // Event handler for the Settings button
+        private async void OnSettingsButtonClicked(object sender, EventArgs e)
         {
-            string selectedDifficulty = difficulty.SelectedItem?.ToString();
-            string selectedQuestionType = questionType.SelectedItem?.ToString();
-            string selectedPlayers = numPlayers.SelectedItem?.ToString();
-
-            // Example of handling the selected values
-            if (string.IsNullOrEmpty(selectedDifficulty) || string.IsNullOrEmpty(selectedQuestionType) || string.IsNullOrEmpty(selectedPlayers))
-            {
-                // Handle the case where a selection is missing (e.g., show an alert)
-                DisplayAlert("Error", "Please select all options", "OK");
-            }
-            else
-            {
-                // Proceed with starting the game based on selected options
-                // Example: Navigate to another page or set game parameters
-                DisplayAlert("Game Starting",
-                    $"Difficulty: {selectedDifficulty}\nQuestion Type: {selectedQuestionType}\nPlayers: {selectedPlayers}",
-                    "OK");
-            }
+            // Navigate to the settings page or show a settings dialog
+            await DisplayAlert("Settings", "Settings functionality not implemented yet.", "OK");
         }
 
+        // Event handler for choosing the number of questions
         private async void OnChooseNumQuestionsClicked(object sender, EventArgs e)
         {
-            // Display an Entry prompt to the user asking how many questions they want
-            var result = await DisplayPromptAsync("Number of Questions", "Enter the number of questions you want:",
-                initialValue: "10",
-                maxLength: 2,
-                keyboard: Keyboard.Numeric);
-
-            // Parse the result to an integer, ensure it's valid
-            if (int.TryParse(result, out int number) && number > 0)
+            // Here you can implement logic to choose the number of questions
+            // For example, you could show a dialog to select the number of questions
+            string result = await DisplayPromptAsync("Number of Questions", "Enter the number of questions:");
+            if (int.TryParse(result, out int numQuestions) && numQuestions > 0)
             {
-                int numQuestions = number; // Update the number of questions
+                // Store the number of questions or use it to start the game
+                await DisplayAlert("Success", $"You have chosen {numQuestions} questions.", "OK");
             }
             else
             {
-                await DisplayAlert("Invalid Input", "Please enter a valid number of questions.", "OK");
+                await DisplayAlert("Error", "Please enter a valid number of questions.", "OK");
             }
         }
-    }
 
+        // Event handler for starting the game
+        private async void OnStartGameClicked(object sender, EventArgs e)
+        {
+            // Here you can implement logic to start the game
+            string selectedDifficulty = difficulty.SelectedItem?.ToString();
+            string selectedQuestionType = questionType.SelectedItem?.ToString();
+            string selectedNumPlayers = numPlayers.SelectedItem?.ToString();
+
+            if (string.IsNullOrEmpty(selectedDifficulty) || string.IsNullOrEmpty(selectedQuestionType) || string.IsNullOrEmpty(selectedNumPlayers))
+            {
+                await DisplayAlert("Error", "Please select all options before starting the game.", "OK");
+                return;
+            }
+
+            // Navigate to the game page or implement game logic
+            await DisplayAlert("Game Starting", $"Starting game with {selectedNumPlayers} players, difficulty: {selectedDifficulty}, question type: {selectedQuestionType}.", "OK");
+
+            // Here you would typically navigate to the game page
+            // await Navigation.PushAsync(new GamePage(selectedDifficulty, selectedQuestionType, selectedNumPlayers));
+        }
+    }
 }

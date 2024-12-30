@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TriviaGame2
+namespace MauiApp1
 {
     public class Question
     {

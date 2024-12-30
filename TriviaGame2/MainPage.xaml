@@ -1,59 +1,88 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+using System.Net.Http;
+using System.Text.Json;
+using System.Threading.Tasks;
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TriviaGame2.MainPage"
              BackgroundColor="Black">
+    
+    <Grid>
+        <!-- Define Rows and Columns -->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <!-- For Settings Button -->
+            <RowDefinition Height="*" />
+            <!-- For Main Content -->
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-    <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="10" HorizontalOptions="Center">
-            <!-- Logo Image -->
-            <Image Source="trivia.png" WidthRequest="250" HeightRequest="125" HorizontalOptions="Center" x:Name="logo" />
+        <!-- Settings Button at Top Right -->
+        <Button 
+            Text="Settings"
+            Clicked="OnSettingsButtonClicked"
+            BackgroundColor="Gray"
+            TextColor="White"
+            WidthRequest="100"
+            HorizontalOptions="End"
+            VerticalOptions="Start"
+            Margin="0,10,10,0" />
 
-            <!-- Difficulty Picker -->
-            <Frame Margin="0, 10, 0, 0" BorderColor="Gray" Padding="8" CornerRadius="8" HorizontalOptions="Center" HasShadow="True">
-                <Picker x:Name="difficulty" Title="Select Difficulty" WidthRequest="250">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>Easy</x:String>
-                            <x:String>Medium</x:String>
-                            <x:String>Hard</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
-            </Frame>
+        <!-- Main Content -->
+        <ScrollView Grid.Row="1">
+            <VerticalStackLayout Padding="20" Spacing="10" HorizontalOptions="Center">
+                <!-- Logo Image -->
+                <Image Source="trivia.png" WidthRequest="250" HeightRequest="125" HorizontalOptions="Center" x:Name="logo" />
 
-            <!-- Question Type Picker (MCQ or True/False) -->
-            <Frame Margin="0, 10, 0, 0" BorderColor="Gray" Padding="8" CornerRadius="8" HorizontalOptions="Center" HasShadow="True">
-                <Picker x:Name="questionType" Title="Select Question Type" WidthRequest="250">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>MCQ</x:String>
-                            <x:String>True or False</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
-            </Frame>
+                <!-- Difficulty Picker -->
+                <Frame Margin="0, 10, 0, 0" BorderColor="Gray" Padding="8" CornerRadius="8" HorizontalOptions="Center" HasShadow="True">
+                    <Picker x:Name="difficulty" Title="Select Difficulty" WidthRequest="250">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>Easy</x:String>
+                                <x:String>Medium</x:String>
+                                <x:String>Hard</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </Frame>
 
-            <!-- Number of Players Picker -->
-            <Frame Margin="0, 10, 0, 0" BorderColor="Gray" Padding="8" CornerRadius="8" HorizontalOptions="Center" HasShadow="True">
-                <Picker x:Name="numPlayers" Title="Select Number of Players" WidthRequest="250">
-                    <Picker.ItemsSource>
-                        <x:Array Type="{x:Type x:String}">
-                            <x:String>1</x:String>
-                            <x:String>2</x:String>
-                            <x:String>3</x:String>
-                            <x:String>4</x:String>
-                        </x:Array>
-                    </Picker.ItemsSource>
-                </Picker>
-            </Frame>
+                <!-- Question Type Picker -->
+                <Frame Margin="0, 10, 0, 0" BorderColor="Gray" Padding="8" CornerRadius="8" HorizontalOptions="Center" HasShadow="True">
+                    <Picker x:Name="questionType" Title="Select Question Type" WidthRequest="250">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>MCQ</x:String>
+                                <x:String>True or False</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </Frame>
 
-            <!-- New Button to Choose Number of Questions -->
-            <Button Text="Choose Number of Questions" x:Name="chooseNumQuestionsButton" Clicked="OnChooseNumQuestionsClicked" Padding="10" WidthRequest="250" CornerRadius="8" HorizontalOptions="Center" BackgroundColor="Violet" TextColor="White" />
+                <!-- Number of Players Picker -->
+                <Frame Margin="0, 10, 0, 0" BorderColor="Gray" Padding="8" CornerRadius="8" HorizontalOptions="Center" HasShadow="True">
+                    <Picker x:Name="numPlayers" Title="Select Number of Players" WidthRequest="250">
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>1</x:String>
+                                <x:String>2</x:String>
+                                <x:String>3</x:String>
+                                <x:String>4</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </Frame>
 
-            <!-- Start Game Button -->
-            <Button Text="Start Game" x:Name="startButton" Clicked="OnStartGameClicked" Padding="10" WidthRequest="250" CornerRadius="8" HorizontalOptions="Center" BackgroundColor="Violet" TextColor="White" />
-        </VerticalStackLayout>
-    </ScrollView>
+                <!-- New Button to Choose Number of Questions -->
+                <Button Text="Choose Number of Questions" x:Name="chooseNumQuestionsButton" Clicked="OnChooseNumQuestionsClicked" Padding="10" WidthRequest="250" CornerRadius="8" HorizontalOptions="Center" BackgroundColor="Violet" TextColor="White" />
 
+                <!-- Start Game Button -->
+                <Button Text="Start Game" x:Name="startButton" Clicked="OnStartGameClicked" Padding="10" WidthRequest="250" CornerRadius="8" HorizontalOptions="Center" BackgroundColor="Violet" TextColor="White" />
+
+               
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

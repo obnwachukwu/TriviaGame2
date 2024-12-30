@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TriviaGame2.Settings"
+             Title="Settings">
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="20">
+
+            <!-- Header -->
+            <Label 
+                Text="Settings"
+                FontSize="24"
+                HorizontalOptions="Center" />
+
+            <!-- Audio Section -->
+            <StackLayout>
+                <Label Text="Audio Settings" FontAttributes="Bold" />
+                <HorizontalStackLayout>
+                    <Label Text="Music Volume:" />
+                    <Slider Minimum="0" Maximum="100" Value="50" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Sound Effects:" />
+                    <Switch IsToggled="True" />
+                </HorizontalStackLayout>
+            </StackLayout>
+
+            <!-- Graphics Section -->
+            <StackLayout>
+                <Label Text="Graphics Settings" FontAttributes="Bold" />
+                <HorizontalStackLayout>
+                    <Label Text="Resolution:" />
+                    <Picker>
+                        <Picker.ItemsSource>
+                            <x:Array Type="{x:Type x:String}">
+                                <x:String>1920x1080</x:String>
+                                <x:String>1280x720</x:String>
+                                <x:String>800x600</x:String>
+                            </x:Array>
+                        </Picker.ItemsSource>
+                    </Picker>
+                </HorizontalStackLayout>
+                <HorizontalStackLayout>
+                    <Label Text="Fullscreen:" />
+                    <Switch IsToggled="False" />
+                </HorizontalStackLayout>
+            </StackLayout>
+
+            <!-- Controls Section -->
+            <StackLayout>
+                <Label Text="Control Settings" FontAttributes="Bold" />
+                <HorizontalStackLayout>
+                    <Label Text="Mouse Sensitivity:" />
+                    <Slider Minimum="0" Maximum="10" Value="5" />
+                </HorizontalStackLayout>
+            </StackLayout>
+
+            <!-- Back Button -->
+            <Button 
+                Text="Back"
+                BackgroundColor="Gray"
+                TextColor="White"
+                Command="{Binding NavigateBackCommand}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
