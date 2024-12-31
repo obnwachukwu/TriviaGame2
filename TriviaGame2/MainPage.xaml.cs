@@ -34,25 +34,16 @@ namespace TriviaGame2
             }
         }
 
-        // Event handler for starting the game
+        private async void OnChooseNumQuestion(object sender, EventArgs e)
+        {
+
+        }
+
         private async void OnStartGameClicked(object sender, EventArgs e)
         {
-            // Here you can implement logic to start the game
-            string selectedDifficulty = difficulty.SelectedItem?.ToString();
-            string selectedQuestionType = questionType.SelectedItem?.ToString();
-            string selectedNumPlayers = numPlayers.SelectedItem?.ToString();
-
-            if (string.IsNullOrEmpty(selectedDifficulty) || string.IsNullOrEmpty(selectedQuestionType) || string.IsNullOrEmpty(selectedNumPlayers))
-            {
-                await DisplayAlert("Error", "Please select all options before starting the game.", "OK");
-                return;
-            }
-
-            // Navigate to the game page or implement game logic
-            await DisplayAlert("Game Starting", $"Starting game with {selectedNumPlayers} players, difficulty: {selectedDifficulty}, question type: {selectedQuestionType}.", "OK");
-
-            // Here you would typically navigate to the game page
-            // await Navigation.PushAsync(new GamePage(selectedDifficulty, selectedQuestionType, selectedNumPlayers));
+            // Navigate to QuickSettingsPage
+            await Navigation.PushAsync(new QuickSettingsPage());
         }
+
     }
 }
