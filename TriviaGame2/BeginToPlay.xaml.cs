@@ -1,57 +1,66 @@
-using System.Net.Http;
-using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 using System;
+using System.Linq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace TriviaGame2
 {
-    public partial class BeginToPlay : ContentPage
+    public partial class BeginToPlay
     {
-        private const string ApiUrl = "https://opentdb.com/api.php";  // URL of the trivia API
+        private readonly TriviaService _triviaService;
 
-        public BeginToPlay(int numOfPlayers, int difficulty, int numOfQuestions, int type)
+        public BeginToPlay(int numPlayers, int difficulty, int numOfQuestions, int questionType)
         {
+            _triviaService = new TriviaService();
             InitializeComponent();
-
-            // Call the method to fetch questions
-            FetchQuestions(numOfPlayers, difficulty, numOfQuestions, type);
         }
 
-        // Fetch questions from the API
-        private async Task FetchQuestions(int numOfPlayers, int difficulty, int numOfQuestions, int type)
+        public async Task StartGameAsync()
         {
-            try
+            var triviaRequest = new TriviaRequest
             {
-                using (HttpClient client = new HttpClient())
+                Amount = 10, // Number of questions the user wants
+                Category = "9", // For example, "9" for General Knowledge
+                Difficulty = "easy", // Difficulty level: easy, medium, or hard
+                Type = "multiple", // "multiple" for multiple-choice questions
+                Encoding = "url3986" // Encoding format (default, url3986, etc.)
+            };
+
+            // Fetch trivia questions from the API
+            var triviaQuestions = await _triviaService.GetTriviaQuestionsAsync(triviaRequest);
+
+            if (triviaQuestions != null && triviaQuestions.Any())
+            {
+                // Start the quiz game with the retrieved questions
+                foreach (var question in triviaQuestions)
                 {
-                    // Construct the API request URL based on the parameters
-                    string apiUrlWithParams = $"{ApiUrl}?amount={numOfQuestions}&difficulty={difficulty}&type={type}";
+                    // Show the question and options (use your game's UI logic here)
+                    Console.WriteLine($"Question: {question.Question}");
+                    var options = new List<string>(question.IncorrectAnswers) { question.CorrectAnswer };
+                    options = options.OrderBy(o => Guid.NewGuid()).ToList(); // Randomize the options
 
-                    // Send the GET request to the trivia API
-                    HttpResponseMessage response = await client.GetAsync(apiUrlWithParams);
-                    response.EnsureSuccessStatusCode();
-
-                    // Read the response content
-                    string jsonResponse = await response.Content.ReadAsStringAsync();
-
-                    // Parse the JSON response to extract the questions
-                    JObject jsonData = JObject.Parse(jsonResponse);
-
-                    // Example: Loop through the questions and print them (or use in your game logic)
-                    foreach (var question in jsonData["results"])
+                    foreach (var option in options)
                     {
-                        string questionText = question["question"].ToString();
-                        string correctAnswer = question["correct_answer"].ToString();
-                        Console.WriteLine($"Question: {questionText}");
-                        Console.WriteLine($"Answer: {correctAnswer}");
+                        Console.WriteLine($"- {option}");
+                    }
 
-                        // You can process the questions here as needed for your game
+                    // Wait for user input to answer the question
+                    Console.WriteLine("Enter your answer: ");
+                    var userAnswer = Console.ReadLine();
+
+                    if (userAnswer?.Trim().ToLower() == question.CorrectAnswer.ToLower())
+                    {
+                        Console.WriteLine("Correct!");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Incorrect! The correct answer was: {question.CorrectAnswer}");
                     }
                 }
             }
-            catch (Exception ex)
+            else
             {
-                Console.WriteLine($"Error fetching trivia questions: {ex.Message}");
+                Console.WriteLine("No trivia questions could be fetched.");
             }
         }
     }

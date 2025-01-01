@@ -29,7 +29,7 @@
 
         <Button 
             Text="History"
-            Clicked="OnSettingsButtonClicked"
+            Clicked="OnHistoryButtonClicked"
             BackgroundColor="Gray"
             TextColor="White"
             WidthRequest="100"

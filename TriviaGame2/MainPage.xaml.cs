@@ -17,6 +17,12 @@ namespace TriviaGame2
             await Navigation.PushAsync(new Settings());
         }
 
+        private async void OnHistoryButtonClicked(object sender, EventArgs e)
+        {
+            // Navigate to the SettingsPage
+            await Navigation.PushAsync(new History());
+        }
+
         // Event handler for choosing the number of questions
         private async void OnChooseNumQuestionsClicked(object sender, EventArgs e)
         {

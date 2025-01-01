@@ -4,33 +4,59 @@
              x:Class="TriviaGame2.Settings"
              Title="Settings">
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="20">
+        <VerticalStackLayout Padding="20" Spacing="15" HorizontalOptions="Center" VerticalOptions="Center">
 
             <!-- Header -->
             <Label 
                 Text="Settings"
-                FontSize="24"
-                HorizontalOptions="Center" />
+                FontSize="30"
+                FontAttributes="Bold"
+                HorizontalOptions="Center" 
+                Margin="0,0,0,20"/>
+
+            <!-- Theme Settings Section -->
+            <StackLayout Spacing="10">
+                <Label Text="Theme Settings" FontAttributes="Bold" HorizontalOptions="Center" />
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label Text="Select Theme:" VerticalOptions="Center"/>
+                    <Picker x:Name="themePicker" WidthRequest="150">
+                        <Picker.Items>
+                            <x:String>Light</x:String>
+                            <x:String>Dark</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </HorizontalStackLayout>
+            </StackLayout>
+
+            <!-- Timer Settings Section -->
+            <StackLayout Spacing="10">
+                <Label Text="Timer Settings" FontAttributes="Bold" HorizontalOptions="Center" />
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label Text="Game Timer (seconds):" VerticalOptions="Center"/>
+                    <Slider x:Name="timerSlider" Minimum="10" Maximum="300" Value="60" WidthRequest="200"/>
+                </HorizontalStackLayout>
+                <Label x:Name="timerLabel" Text="Timer: 60" HorizontalOptions="Center"/>
+            </StackLayout>
 
             <!-- Audio Section -->
-            <StackLayout>
-                <Label Text="Audio Settings" FontAttributes="Bold" />
-                <HorizontalStackLayout>
-                    <Label Text="Music Volume:" />
-                    <Slider Minimum="0" Maximum="100" Value="50" />
+            <StackLayout Spacing="10">
+                <Label Text="Audio Settings" FontAttributes="Bold" HorizontalOptions="Center" />
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label Text="Music Volume:" VerticalOptions="Center"/>
+                    <Slider Minimum="0" Maximum="100" Value="50" WidthRequest="200"/>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout>
-                    <Label Text="Sound Effects:" />
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label Text="Sound Effects:" VerticalOptions="Center"/>
                     <Switch IsToggled="True" />
                 </HorizontalStackLayout>
             </StackLayout>
 
             <!-- Graphics Section -->
-            <StackLayout>
-                <Label Text="Graphics Settings" FontAttributes="Bold" />
-                <HorizontalStackLayout>
-                    <Label Text="Resolution:" />
-                    <Picker>
+            <StackLayout Spacing="10">
+                <Label Text="Graphics Settings" FontAttributes="Bold" HorizontalOptions="Center" />
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label Text="Resolution:" VerticalOptions="Center"/>
+                    <Picker WidthRequest="150">
                         <Picker.ItemsSource>
                             <x:Array Type="{x:Type x:String}">
                                 <x:String>1920x1080</x:String>
@@ -40,18 +66,18 @@
                         </Picker.ItemsSource>
                     </Picker>
                 </HorizontalStackLayout>
-                <HorizontalStackLayout>
-                    <Label Text="Fullscreen:" />
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label Text="Fullscreen:" VerticalOptions="Center"/>
                     <Switch IsToggled="False" />
                 </HorizontalStackLayout>
             </StackLayout>
 
             <!-- Controls Section -->
-            <StackLayout>
-                <Label Text="Control Settings" FontAttributes="Bold" />
-                <HorizontalStackLayout>
-                    <Label Text="Mouse Sensitivity:" />
-                    <Slider Minimum="0" Maximum="10" Value="5" />
+            <StackLayout Spacing="10">
+                <Label Text="Control Settings" FontAttributes="Bold" HorizontalOptions="Center" />
+                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                    <Label Text="Mouse Sensitivity:" VerticalOptions="Center"/>
+                    <Slider Minimum="0" Maximum="10" Value="5" WidthRequest="200"/>
                 </HorizontalStackLayout>
             </StackLayout>
 
@@ -60,8 +86,10 @@
                 Text="Back"
                 BackgroundColor="Gray"
                 TextColor="White"
-                Command="{Binding NavigateBackCommand}" />
-
+                HorizontalOptions="Center"
+                WidthRequest="150"
+                Command="{Binding NavigateBackCommand}" 
+                Margin="20,20,20,0"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
