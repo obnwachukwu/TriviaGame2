@@ -46,10 +46,7 @@
                 <!-- Logo Image -->
                 <Image Source="trivia.png" WidthRequest="250" HeightRequest="125" HorizontalOptions="Center" x:Name="logo" />
 
-                <!-- New Button to Choose Number of Questions -->
-                <Button Text="Choose Number of Questions" x:Name="chooseNumQuestionsButton" Clicked="OnChooseNumQuestionsClicked" Padding="10" WidthRequest="250" CornerRadius="8" HorizontalOptions="Center" BackgroundColor="Violet" TextColor="White" />
-
-                <!-- Start Game Button -->
+             <!-- Start Game Button -->
                 <Button Text="Click to Begin" x:Name="startButton" Clicked="OnStartGameClicked" Padding="10" WidthRequest="250" CornerRadius="8" HorizontalOptions="Center" BackgroundColor="Violet" TextColor="White" />
             </VerticalStackLayout>
         </ScrollView>
