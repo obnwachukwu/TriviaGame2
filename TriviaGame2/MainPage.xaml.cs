@@ -13,8 +13,8 @@ namespace TriviaGame2
         // Event handler for the Settings button
         private async void OnSettingsButtonClicked(object sender, EventArgs e)
         {
-            // Navigate to the settings page or show a settings dialog
-            await DisplayAlert("Settings", "Settings functionality not implemented yet.", "OK");
+            // Navigate to the SettingsPage
+            await Navigation.PushAsync(new Settings());
         }
 
         // Event handler for choosing the number of questions

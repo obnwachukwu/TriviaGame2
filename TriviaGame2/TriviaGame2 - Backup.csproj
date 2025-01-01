@@ -64,6 +64,15 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="BeginToPlay.xaml.cs">
+	    <DependentUpon>BeginToPlay.xaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="BeginToPlay.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="History.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
