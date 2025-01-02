@@ -9,6 +9,6 @@ public partial class TriviaRequest : ContentPage
     public string Encoding { get; set; }
     public TriviaRequest()
 	{
-		InitializeComponent();
+	
 	}
 }

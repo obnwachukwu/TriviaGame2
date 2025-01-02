@@ -4,7 +4,7 @@
              x:Class="TriviaGame2.Settings"
              Title="Settings">
     <ScrollView>
-        <VerticalStackLayout Padding="20" Spacing="15" HorizontalOptions="Center" VerticalOptions="Center">
+        <VerticalStackLayout Padding="20" Spacing="20" HorizontalOptions="Center" VerticalOptions="Center">
 
             <!-- Header -->
             <Label 
@@ -19,7 +19,7 @@
                 <Label Text="Theme Settings" FontAttributes="Bold" HorizontalOptions="Center" />
                 <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
                     <Label Text="Select Theme:" VerticalOptions="Center"/>
-                    <Picker x:Name="themePicker" WidthRequest="150">
+                    <Picker x:Name="themePicker" WidthRequest="150" SelectedIndexChanged="OnThemeChanged">
                         <Picker.Items>
                             <x:String>Light</x:String>
                             <x:String>Dark</x:String>
@@ -33,63 +33,41 @@
                 <Label Text="Timer Settings" FontAttributes="Bold" HorizontalOptions="Center" />
                 <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
                     <Label Text="Game Timer (seconds):" VerticalOptions="Center"/>
-                    <Slider x:Name="timerSlider" Minimum="10" Maximum="300" Value="60" WidthRequest="200"/>
+                    <Slider x:Name="timerSlider" Minimum="10" Maximum="60" Value="30" WidthRequest="200"/>
                 </HorizontalStackLayout>
-                <Label x:Name="timerLabel" Text="Timer: 60" HorizontalOptions="Center"/>
+                <Label x:Name="timerLabel" Text="Timer: 30 seconds" HorizontalOptions="Center"/>
             </StackLayout>
 
             <!-- Audio Section -->
             <StackLayout Spacing="10">
                 <Label Text="Audio Settings" FontAttributes="Bold" HorizontalOptions="Center" />
                 <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                    <Label Text="Music Volume:" VerticalOptions="Center"/>
-                    <Slider Minimum="0" Maximum="100" Value="50" WidthRequest="200"/>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
                     <Label Text="Sound Effects:" VerticalOptions="Center"/>
-                    <Switch IsToggled="True" />
+                    <Switch x:Name="soundEffectsSwitch" IsToggled="True" />
                 </HorizontalStackLayout>
             </StackLayout>
 
-            <!-- Graphics Section -->
+            <!-- Clear History Section -->
             <StackLayout Spacing="10">
-                <Label Text="Graphics Settings" FontAttributes="Bold" HorizontalOptions="Center" />
-                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                    <Label Text="Resolution:" VerticalOptions="Center"/>
-                    <Picker WidthRequest="150">
-                        <Picker.ItemsSource>
-                            <x:Array Type="{x:Type x:String}">
-                                <x:String>1920x1080</x:String>
-                                <x:String>1280x720</x:String>
-                                <x:String>800x600</x:String>
-                            </x:Array>
-                        </Picker.ItemsSource>
-                    </Picker>
-                </HorizontalStackLayout>
-                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                    <Label Text="Fullscreen:" VerticalOptions="Center"/>
-                    <Switch IsToggled="False" />
-                </HorizontalStackLayout>
-            </StackLayout>
-
-            <!-- Controls Section -->
-            <StackLayout Spacing="10">
-                <Label Text="Control Settings" FontAttributes="Bold" HorizontalOptions="Center" />
-                <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
-                    <Label Text="Mouse Sensitivity:" VerticalOptions="Center"/>
-                    <Slider Minimum="0" Maximum="10" Value="5" WidthRequest="200"/>
-                </HorizontalStackLayout>
+                <Label Text="History" FontAttributes="Bold" HorizontalOptions="Center" />
+                <Button 
+                    Text="Clear History"
+                    BackgroundColor="Red"
+                    TextColor="White"
+                    HorizontalOptions="Center"
+                    WidthRequest="150"
+                    Clicked="OnClearHistoryClicked" />
             </StackLayout>
 
             <!-- Back Button -->
             <Button 
-                Text="Back"
-                BackgroundColor="Gray"
-                TextColor="White"
-                HorizontalOptions="Center"
-                WidthRequest="150"
-                Command="{Binding NavigateBackCommand}" 
-                Margin="20,20,20,0"/>
+    Text="Back"
+    BackgroundColor="Gray"
+    TextColor="White"
+    HorizontalOptions="Center"
+    WidthRequest="150"
+    Clicked="OnBackButton"
+    Margin="20,20,20,0"/>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

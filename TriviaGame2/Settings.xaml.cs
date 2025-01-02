@@ -1,37 +1,53 @@
-using Microsoft.Maui.Controls;
+namespace TriviaGame2;
 
-namespace TriviaGame2
+public partial class Settings : ContentPage
 {
-    public partial class Settings : ContentPage
+    public Settings()
     {
-        public Settings()
+        InitializeComponent();
+        timerSlider.ValueChanged += OnTimerSliderValueChanged;
+    }
+
+    private void OnTimerSliderValueChanged(object sender, ValueChangedEventArgs e)
+    {
+        timerLabel.Text = $"Timer: {Math.Round(e.NewValue)} seconds";
+    }
+
+    private async void OnClearHistoryClicked(object sender, EventArgs e)
+    {
+        bool confirm = await DisplayAlert("Confirm", "Are you sure you want to clear your history?", "Yes", "No");
+        if (confirm)
         {
-            InitializeComponent();
-            themePicker.SelectedIndexChanged += ThemePicker_SelectedIndexChanged;
+            // Add logic to clear history here
+            await DisplayAlert("History Cleared", "Your game history has been cleared.", "OK");
+        }
+    }
+
+    private void OnThemeChanged(object sender, EventArgs e)
+    {
+        string selectedTheme = themePicker.SelectedItem?.ToString();
+
+        if (selectedTheme == "Light")
+        {
+            Application.Current.UserAppTheme = AppTheme.Light;
+        }
+        else if (selectedTheme == "Dark")
+        {
+            Application.Current.UserAppTheme = AppTheme.Dark;
         }
 
-        private void ThemePicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Get the selected theme
-            var selectedTheme = themePicker.SelectedItem.ToString();
+    }
 
-            // Apply the selected theme
-            if (selectedTheme == "Light")
-            {
-                Application.Current.Resources.MergedDictionaries.Clear();
-                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("resource://TriviaGame2.Resources.LightTheme.xaml", UriKind.Absolute) });
-            }
-            else if (selectedTheme == "Dark")
-            {
-                Application.Current.Resources.MergedDictionaries.Clear();
-                Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary { Source = new Uri("resource://TriviaGame2.Resources.DarkTheme.xaml", UriKind.Absolute) });
-            }
+    private void OnBackButton(object sender, EventArgs e)
+    {
+        // Handle navigation logic
+        if (Navigation.NavigationStack.Count > 1)
+        {
+            Navigation.PopAsync();
         }
-
-        // Navigate back to the previous page
-        private async void NavigateBackCommand()
+        else
         {
-            await Navigation.PopAsync();
+            DisplayAlert("Notice", "No previous page available.", "OK");
         }
     }
 }
