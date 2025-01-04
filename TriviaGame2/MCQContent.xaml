@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TriviaGame2.MCQContent">
+
+    <!-- StackLayout to contain the Label -->
+    <StackLayout Padding="20">
+        <Image Source="trivia.png" WidthRequest="250" HeightRequest="125" HorizontalOptions="Center" x:Name="logo" />
+        <Label x:Name="messageLabel" 
+               HorizontalOptions="Center" 
+               VerticalOptions="CenterAndExpand" 
+               Text="Hello MCQ page"
+         />
+    </StackLayout>
+</ContentView>

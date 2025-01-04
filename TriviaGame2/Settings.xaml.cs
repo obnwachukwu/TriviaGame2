@@ -36,7 +36,9 @@ public partial class Settings : ContentPage
             Application.Current.UserAppTheme = AppTheme.Dark;
         }
 
+        // No need to navigate; the UI will update automatically
     }
+
 
     private void OnBackButton(object sender, EventArgs e)
     {

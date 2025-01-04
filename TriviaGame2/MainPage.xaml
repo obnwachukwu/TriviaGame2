@@ -2,13 +2,13 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TriviaGame2.MainPage"
-             BackgroundColor="Black">
-    
+             BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#000000}">
+
     <Grid>
         <!-- Define Rows and Columns -->
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <!-- For Settings Button -->
+            <!-- For Settings and History Buttons -->
             <RowDefinition Height="*" />
             <!-- For Main Content -->
         </Grid.RowDefinitions>
@@ -20,25 +20,23 @@
         <Button 
             Text="Settings"
             Clicked="OnSettingsButtonClicked"
-            BackgroundColor="Gray"
-            TextColor="White"
+            BackgroundColor="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
+            TextColor="{AppThemeBinding Light=#000000, Dark=#FFFFFF}"
             WidthRequest="100"
             HorizontalOptions="End"
             VerticalOptions="Start"
             Margin="0,10,10,0" />
 
+        <!-- History Button at Top Right -->
         <Button 
             Text="History"
             Clicked="OnHistoryButtonClicked"
-            BackgroundColor="Gray"
-            TextColor="White"
+            BackgroundColor="{AppThemeBinding Light=#DDDDDD, Dark=#444444}"
+            TextColor="{AppThemeBinding Light=#000000, Dark=#FFFFFF}"
             WidthRequest="100"
             HorizontalOptions="End"
             VerticalOptions="Start"
             Margin="0,10,130,0"/>
-
-        
-
 
         <!-- Main Content -->
         <ScrollView Grid.Row="1">
@@ -46,8 +44,22 @@
                 <!-- Logo Image -->
                 <Image Source="trivia.png" WidthRequest="250" HeightRequest="125" HorizontalOptions="Center" x:Name="logo" />
 
-             <!-- Start Game Button -->
-                <Button Text="Click to Begin" x:Name="startButton" Clicked="OnStartGameClicked" Padding="10" WidthRequest="250" CornerRadius="8" HorizontalOptions="Center" BackgroundColor="Violet" TextColor="White" />
+                <Label HorizontalTextAlignment="Center">
+                    Welcome to a CS Trivia Game made by Bogdan Nwachukwu
+                </Label>
+                <!-- Start Game Button -->
+                <Button 
+                    Text="Click to Begin"
+                    Margin="10"
+                    x:Name="startButton"
+                    Clicked="OnStartGameClicked"
+                    Padding="10"
+                    WidthRequest="250"
+                    CornerRadius="8"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    BackgroundColor="{AppThemeBinding Light=#6200EE, Dark=#BB86FC}"
+                    TextColor="{AppThemeBinding Light=#FFFFFF, Dark=#000000}" />
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

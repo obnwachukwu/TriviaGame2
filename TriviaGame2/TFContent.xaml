@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TriviaGame2.TFContent">
+
+    <!-- StackLayout to contain the Label -->
+    <StackLayout Padding="20">
+        <Image Source="trivia.png" WidthRequest="250" HeightRequest="125" HorizontalOptions="Center" x:Name="logo" Margin="50" />
+        <Label Text="{Binding QuestionText}"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand"
+               Margin="10"
+               />
+        <Button Text="True" Clicked="OnTrueButtonClicked" Margin="5"/>
+        <Button Text="False" Clicked="OnFalseButtonClicked" Margin="5" />
+    </StackLayout>
+</ContentView>
