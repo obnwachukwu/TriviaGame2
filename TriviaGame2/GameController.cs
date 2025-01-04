@@ -68,7 +68,7 @@ public class GameController : BindableObject
     public async Task GetQuestionFromApi()
     {
         IsLoading = true;
-        var url = "https://opentdb.com/api.php?amount=1&category=21&difficulty=easy&type=boolean";
+        var url = "https://run.mocky.io/v3/db028131-3e89-4d83-bc3e-e46c0f163118";
         Data = await _apiService.GetDataAsync(url);
 
         if (Data != null && Data.Results.Count > 0)

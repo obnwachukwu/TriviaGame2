@@ -1,18 +1,31 @@
-﻿namespace TriviaGame2
-{
-    public class ApiResponse
-    {
-        public int ResponseCode { get; set; }
-        public List<QuestionResult> Results { get; set; }
-    }
+﻿using Newtonsoft.Json;
 
-    public class QuestionResult
-    {
-        public string Type { get; set; }
-        public string Difficulty { get; set; }
-        public string Category { get; set; }
-        public string Question { get; set; }
-        public string CorrectAnswer { get; set; }
-        public List<string> IncorrectAnswers { get; set; }
-    }
+public class ApiResponse
+{
+    [JsonProperty("response_code")]
+    public int ResponseCode { get; set; }
+
+    [JsonProperty("results")]
+    public List<Result> Results { get; set; }
+}
+
+public class Result
+{
+    [JsonProperty("category")]
+    public string Category { get; set; }
+
+    [JsonProperty("type")]
+    public string Type { get; set; }
+
+    [JsonProperty("difficulty")]
+    public string Difficulty { get; set; }
+
+    [JsonProperty("question")]
+    public string Question { get; set; }
+
+    [JsonProperty("correct_answer")]
+    public string CorrectAnswer { get; set; }
+
+    [JsonProperty("incorrect_answers")]
+    public List<string> IncorrectAnswers { get; set; }
 }
