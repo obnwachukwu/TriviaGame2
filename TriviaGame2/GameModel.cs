@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-public class ApiResponse
+public class QuestionsResponse
 {
     //[JsonProperty("response_code")]
     //public int ResponseCode { get; set; }
@@ -24,6 +24,7 @@ public class ApiResponse
 
     [JsonProperty("results")]
     public List<Result> results { get; set; }
+    public object trivia_categories { get; internal set; }
 }
 
 public class Result
@@ -46,3 +47,15 @@ public class Result
     [JsonProperty("incorrect_answers")]
     public List<string> incorrect_answers { get; set; }
 }
+
+public class TriviaCategory
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+}
+
+public class CategoryResponse
+{
+    public List<TriviaCategory> Trivia_Categories { get; set; }
+}
+

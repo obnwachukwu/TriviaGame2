@@ -4,10 +4,8 @@
              x:Class="TriviaGame2.GamePage"
              BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#000000}">
     <StackLayout Padding="20">
-        <!-- Display loading indicator if data is loading -->
         <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}" />
 
-        <!-- Display dynamic ContentView -->
         <ContentView Content="{Binding ContentView}" />
     </StackLayout>
 </ContentPage>
