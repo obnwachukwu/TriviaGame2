@@ -68,6 +68,9 @@
 	  <Compile Update="MCQContent.xaml.cs">
 	    <DependentUpon>MCQContent.xaml</DependentUpon>
 	  </Compile>
+	  <Compile Update="TFContent - Copy.xaml.cs">
+	    <DependentUpon>%(Filename)</DependentUpon>
+	  </Compile>
 	  <Compile Update="TFContent.xaml.cs">
 	    <DependentUpon>TFContent.xaml</DependentUpon>
 	  </Compile>
@@ -78,6 +81,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="MCQContent.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="TFContent - Copy.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="TFContent.xaml">

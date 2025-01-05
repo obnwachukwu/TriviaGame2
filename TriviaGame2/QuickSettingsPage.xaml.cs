@@ -15,6 +15,8 @@ public partial class QuickSettingsPage : ContentPage
     public string SelectedNumQuestions { get; set; }
     public int SelectedCategoryId { get; private set; }
 
+    public int ReceivedSessionToken { get;  set; }
+
     private Dictionary<int, string> CategoryMapping { get; set; }
 
     public QuickSettingsPage()
@@ -88,6 +90,8 @@ public partial class QuickSettingsPage : ContentPage
             BindingContext = gameController
         };
 
+        string token = await gameController.GetSessionTokenAsync();
+
         // Navigate to the GamePage
         await Navigation.PushAsync(gamePage);
 
@@ -96,7 +100,8 @@ public partial class QuickSettingsPage : ContentPage
             SelectedDifficulty,
             SelectedType,
             SelectedNumPlayers,
-            SelectedNumQuestions
+            SelectedNumQuestions,
+            token
         );
     }
 }

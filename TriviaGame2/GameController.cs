@@ -1,12 +1,11 @@
-﻿using System.Diagnostics;
+﻿using Microsoft.Extensions.Primitives;
+using System.Diagnostics;
 using System.Text.Json;
 using TriviaGame2;
 
 public class GameController : BindableObject
 {
     private QuestionsResponse _data;
-    private string _questionText;
-    private string _questionType;
     private bool _isLoading;
     private ContentView _contentView;
 
@@ -20,25 +19,6 @@ public class GameController : BindableObject
         }
     }
 
-    public string QuestionText
-    {
-        get => _questionText;
-        set
-        {
-            _questionText = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public string QuestionType
-    {
-        get => _questionType;
-        set
-        {
-            _questionType = value;
-            OnPropertyChanged();
-        }
-    }
 
     public bool IsLoading
     {
@@ -72,18 +52,17 @@ public class GameController : BindableObject
                 string SelectedDifficulty,
                 string SelectedType,
                 string SelectedNumPlayers,
-                string SelectedNumQuestions
+                string SelectedNumQuestions,
+                string token 
         )
     {
         var selectedType = "";
 
         IsLoading = true;
 
-        // Ensure SelectedNumQuestions is parsed as an integer
         int numQuestions = int.Parse(SelectedNumQuestions);
 
-        // Ensure selectedCategory is a valid category ID, typically an integer
-        int categoryId = int.Parse(selectedCategory); // Assuming selectedCategory is an ID (string -> int)
+        int categoryId = int.Parse(selectedCategory);
 
         if (SelectedType == "MCQ")
         {
@@ -95,23 +74,36 @@ public class GameController : BindableObject
 
         try
         {
-            var url = $"https://opentdb.com/api.php?amount={SelectedNumQuestions}&type={selectedType}&difficulty={SelectedDifficulty.ToLower()}&category={selectedCategory}";
+            var url="";
+
+            if (token == null)
+            {
+                 url = $"https://opentdb.com/api.php?amount={SelectedNumQuestions}&type={selectedType}&difficulty={SelectedDifficulty.ToLower()}&category={selectedCategory}";
+            }
+            else
+            {
+                Debug.WriteLine("There was a token");
+                 url = $"https://opentdb.com/api.php?amount={SelectedNumQuestions}&type={selectedType}&difficulty={SelectedDifficulty.ToLower()}&category={selectedCategory}&token={token}";
+            }
+            
             Data = await _apiService.GetQuestionAsync(url);
-            if (Data != null)
+            if (Data.results[0].type == "boolean")
             {
 
-                Debug.WriteLine($"Generated URL: {Data}");
+                Debug.WriteLine($"Response Code: {Data.ResponseCode}");
                 Debug.WriteLine($"First question: {Data.results[0].question}");
-                _questionText = Data.results[0].question;
+               
+                ContentView = new TFContent(Data.results);
 
-                ContentView = new TFContent(_questionText);
-
+            }
+            else {
+                ContentView = new MCQContent(Data.results);
             }
         }
         catch (Exception ex) {
             // Handle case when no data is found
-            QuestionText = "No True/false question found!";
-            ContentView = new MCQContent(); // Default content view
+            Debug.WriteLine("No True/false question found!");
+            
         } finally { IsLoading = false; }
     }
 
@@ -137,8 +129,34 @@ public class GameController : BindableObject
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error fetching categories: {ex.Message}");
+            Debug.WriteLine($"Error fetching categories: {ex.Message}");
             return new Dictionary<int, string>();
+        }
+        finally
+        {
+            IsLoading = false;
+        }
+    }
+
+    public async Task <String> GetSessionTokenAsync()
+    {
+        IsLoading = true;
+
+        try
+        {
+            var url = "https://opentdb.com/api_token.php?command=request";
+
+            // Fetch the data using the ApiService
+            var jsonResponse = await _apiService.GetSessionTokenAsync(url);
+            Debug.WriteLine($"This is the token: {jsonResponse.Token}");
+
+      
+            return jsonResponse.Token;
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error fetching categories: {ex.Message}");
+            return ex.Message;
         }
         finally
         {

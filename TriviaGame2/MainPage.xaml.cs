@@ -34,11 +34,6 @@ namespace TriviaGame2
             }
         }
 
-        private async void OnChooseNumQuestion(object sender, EventArgs e)
-        {
-
-        }
-
         private async void OnStartGameClicked(object sender, EventArgs e)
         {
             // Navigate to QuickSettingsPage
