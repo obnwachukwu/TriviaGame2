@@ -60,7 +60,7 @@ public class GameController : BindableObject
 
     private readonly ApiService _apiService;
 
-    public GameController(ApiService apiService)
+    public  GameController(ApiService apiService)
     {
         _apiService = apiService;
     }
@@ -68,32 +68,23 @@ public class GameController : BindableObject
     public async Task GetQuestionFromApi()
     {
         IsLoading = true;
-        var url = "https://run.mocky.io/v3/db028131-3e89-4d83-bc3e-e46c0f163118";
-        Data = await _apiService.GetDataAsync(url);
 
-        if (Data != null && Data.Results.Count > 0)
+        try
         {
-            // Set the QuestionText and QuestionType from the response
-            QuestionText = Data.Results[0].Question;
-            QuestionType = Data.Results[0].Type;
+            var url = "https://opentdb.com/api.php?amount=10&type=boolean";
+            Data = await _apiService.GetDataAsync(url);
+            if (Data != null)
+            {
+                _questionText = Data.results[0].question;
 
-            // Dynamically set the ContentView based on question type
-            if (QuestionType == "boolean")
-            {
-                ContentView = new TFContent(); // True/False content view
-            }
-            else
-            {
-                ContentView = new MCQContent(); // Multiple-choice content view
+                ContentView = new TFContent(_questionText);
+
             }
         }
-        else
-        {
+        catch (Exception ex) {
             // Handle case when no data is found
-            QuestionText = "No question found!";
-            ContentView = new TFContent(); // Default content view
-        }
-
-        IsLoading = false;
+            QuestionText = "No True/false question found!";
+            ContentView = new MCQContent(); // Default content view
+        } finally { IsLoading = false; }
     }
 }

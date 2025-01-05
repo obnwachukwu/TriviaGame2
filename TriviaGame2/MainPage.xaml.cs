@@ -1,6 +1,4 @@
-﻿using System;
-using Microsoft.Maui.Controls;
-
+﻿
 namespace TriviaGame2
 {
     public partial class MainPage : ContentPage
@@ -10,28 +8,24 @@ namespace TriviaGame2
             InitializeComponent();
         }
 
-        // Event handler for the Settings button
+
         private async void OnSettingsButtonClicked(object sender, EventArgs e)
         {
-            // Navigate to the SettingsPage
+
             await Navigation.PushAsync(new Settings());
         }
 
         private async void OnHistoryButtonClicked(object sender, EventArgs e)
         {
-            // Navigate to the SettingsPage
+
             await Navigation.PushAsync(new History());
         }
 
-        // Event handler for choosing the number of questions
         private async void OnChooseNumQuestionsClicked(object sender, EventArgs e)
         {
-            // Here you can implement logic to choose the number of questions
-            // For example, you could show a dialog to select the number of questions
             string result = await DisplayPromptAsync("Number of Questions", "Enter the number of questions:");
             if (int.TryParse(result, out int numQuestions) && numQuestions > 0)
             {
-                // Store the number of questions or use it to start the game
                 await DisplayAlert("Success", $"You have chosen {numQuestions} questions.", "OK");
             }
             else

@@ -2,19 +2,24 @@ namespace TriviaGame2;
 
 public partial class TFContent : ContentView
 {
-    public TFContent()
+    private string questionText;
+
+    public TFContent(string questionText)
     {
         InitializeComponent();
 
-        var gameController = new GameController(new ApiService());
-        BindingContext = gameController;
-
-        LoadQuestion(gameController);
+        this.QuestionText = questionText;
+        BindingContext = this; 
     }
 
-    private async void LoadQuestion(GameController gameController)
+    public string QuestionText
     {
-        await gameController.GetQuestionFromApi();
+        get { return questionText; }
+        set
+        {
+            questionText = value;
+            OnPropertyChanged(nameof(QuestionText)); 
+        }
     }
 
     private void OnTrueButtonClicked(object sender, EventArgs e)

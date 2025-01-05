@@ -73,7 +73,18 @@ namespace TriviaGame2
 
         private async void OnStartGameButtonClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new GamePage());
+            var gameController = new GameController(new ApiService());
+            // Push the GamePage with the GameController as its BindingContext
+            var gamePage = new GamePage
+            {
+                BindingContext = gameController
+            };
+
+            // Navigate to the GamePage
+            await Navigation.PushAsync(gamePage);
+
+            // Get the questions from API
+            await gameController.GetQuestionFromApi();
         }
     }
 }

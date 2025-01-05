@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using TriviaGame2;
 
 public class ApiService
 {
@@ -14,11 +13,9 @@ public class ApiService
     {
         try
         {
-            var response = await _httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
+            var response = await _httpClient.GetStringAsync(url);
 
-            var data = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<ApiResponse>(data);
+            return  JsonConvert.DeserializeObject<ApiResponse>(response);
         }
         catch (Exception ex)
         {

@@ -5,10 +5,7 @@ namespace TriviaGame2
         public GamePage()
         {
             InitializeComponent();
-            BindingContext = new GameController(new ApiService()); // Set the ViewModel
-
-            // Fetch data when the page is loaded
-            ((GameController)BindingContext).GetQuestionFromApi();
+            BindingContext = new GameController(new ApiService());
         }
     }
 }

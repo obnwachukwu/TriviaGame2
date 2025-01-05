@@ -2,30 +2,47 @@
 
 public class ApiResponse
 {
+    //[JsonProperty("response_code")]
+    //public int ResponseCode { get; set; }
+
+    //[JsonProperty("results")]
+    //public List<Result> Results { get; set; }
+    //[JsonProperty("userId")]
+    //public int userId { get; set; }
+
+    //[JsonProperty("id")]
+    // public string id { get; set; }
+
+    //[JsonProperty("title")]
+    // public string title { get; set; }
+
+    // [JsonProperty("completed")]
+    //public string completed { get; set; }
+
     [JsonProperty("response_code")]
     public int ResponseCode { get; set; }
 
     [JsonProperty("results")]
-    public List<Result> Results { get; set; }
+    public List<Result> results { get; set; }
 }
 
 public class Result
 {
     [JsonProperty("category")]
-    public string Category { get; set; }
+    public string category { get; set; }
 
     [JsonProperty("type")]
-    public string Type { get; set; }
+    public string type { get; set; }
 
     [JsonProperty("difficulty")]
-    public string Difficulty { get; set; }
+    public string difficulty { get; set; }
 
     [JsonProperty("question")]
-    public string Question { get; set; }
+    public string question { get; set; }
 
     [JsonProperty("correct_answer")]
-    public string CorrectAnswer { get; set; }
+    public string correct_answer { get; set; }
 
     [JsonProperty("incorrect_answers")]
-    public List<string> IncorrectAnswers { get; set; }
+    public List<string> incorrect_answers { get; set; }
 }
