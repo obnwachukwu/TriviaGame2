@@ -70,3 +70,13 @@ public class TokenResponse
     [JsonProperty("token")]
     public string Token { get; set; }
 }
+
+public class Player
+{
+    public string Name { get; set; }
+    public int Score { get; set; } = 0;
+    public string SelectedCategory { get; set; }
+    public string SelectedDifficulty { get; set; }
+    public string SelectedType { get; set; }
+    public List<Result> Questions { get; set; } = new List<Result>();
+}

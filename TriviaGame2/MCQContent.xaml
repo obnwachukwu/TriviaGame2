@@ -3,14 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TriviaGame2.MCQContent">
     <StackLayout Padding="20">
-        <!-- Question -->
+
         <Label Text="{Binding CurrentQuestion}"
                FontSize="20"
                HorizontalOptions="Center"
                VerticalOptions="CenterAndExpand"
                Margin="10" />
 
-        <!-- Multiple Choice Buttons -->
         <Button x:Name="ButtonOptionA" Clicked="OnOptionAClicked" Margin="5" />
         <Button x:Name="ButtonOptionB" Clicked="OnOptionBClicked" Margin="5" />
         <Button x:Name="ButtonOptionC" Clicked="OnOptionCClicked" Margin="5" />

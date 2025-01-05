@@ -92,15 +92,23 @@ public partial class QuickSettingsPage : ContentPage
 
         string token = await gameController.GetSessionTokenAsync();
 
+        // Set defaults for selected variables if not chosen
+        string categoryId = SelectedCategoryId != 0 ? SelectedCategoryId.ToString() : "";
+        string difficulty = SelectedDifficulty ?? ""; // Default to empty string if null
+        string type = SelectedType ?? ""; // Default to empty string if null
+        string numPlayers = SelectedNumPlayers ?? ""; // Default to empty string if null
+        string numQuestions = SelectedNumQuestions ?? ""; // Default to empty string if null
+
+
         // Navigate to the GamePage
         await Navigation.PushAsync(gamePage);
 
         await gameController.GetQuestionFromApi(
-            SelectedCategoryId.ToString(),
-            SelectedDifficulty,
-            SelectedType,
-            SelectedNumPlayers,
-            SelectedNumQuestions,
+            categoryId,
+            difficulty,
+            type,
+            numPlayers,
+            numQuestions,
             token
         );
     }

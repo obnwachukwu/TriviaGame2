@@ -30,7 +30,6 @@ public partial class MCQContent : ContentView
 
     private void DisplayCurrentQuestion()
     {
-        // Shuffle the options to randomize their order
         var options = new List<string>
         {
             OptionA,

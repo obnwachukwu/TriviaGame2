@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.Primitives;
+﻿
 using System.Diagnostics;
-using System.Text.Json;
 using TriviaGame2;
 
 public class GameController : BindableObject
@@ -8,6 +7,13 @@ public class GameController : BindableObject
     private QuestionsResponse _data;
     private bool _isLoading;
     private ContentView _contentView;
+
+    public List<Player> Players { get; private set; } = new List<Player>();
+    private int _currentPlayerIndex = 0;
+    private int _currentRound = 0;
+    private int _totalRounds;
+
+    // Getter and Setters
 
     public QuestionsResponse Data
     {
@@ -42,11 +48,50 @@ public class GameController : BindableObject
 
     private readonly ApiService _apiService;
 
-    public  GameController(ApiService apiService)
+    // Constructors
+    public GameController(ApiService apiService)
     {
         _apiService = apiService;
     }
 
+    public GameController(int numPlayers, int numQuestions)
+    {
+        _totalRounds = numQuestions;
+        InitializePlayers(numPlayers);
+    }
+
+
+    private void InitializePlayers(int numPlayers)
+    {
+        for (int i = 0; i < numPlayers; i++)
+        {
+            Players.Add(new Player { Name = $"Player {i + 1}" });
+        }
+    }
+
+    public Player GetCurrentPlayer()
+    {
+        return Players[_currentPlayerIndex];
+    }
+
+    public void NextTurn()
+    {
+        _currentPlayerIndex = (_currentPlayerIndex + 1) % Players.Count;
+
+        if (_currentPlayerIndex == 0)
+        {
+            _currentRound++;
+        }
+    }
+
+    public bool IsGameOver()
+    {
+        return _currentRound >= _totalRounds;
+    }
+
+
+
+    // API Calls
     public async Task GetQuestionFromApi(
                 string selectedCategory,
                 string SelectedDifficulty,
@@ -57,12 +102,21 @@ public class GameController : BindableObject
         )
     {
         var selectedType = "";
+        int categoryId;
+        int numQuestions;
 
         IsLoading = true;
 
-        int numQuestions = int.Parse(SelectedNumQuestions);
+        if (SelectedNumQuestions != "")
+        {
+             numQuestions = int.Parse(SelectedNumQuestions);
+        }
 
-        int categoryId = int.Parse(selectedCategory);
+        if (selectedCategory != "")
+        {
+            categoryId = int.Parse(selectedCategory);
+        }
+
 
         if (SelectedType == "MCQ")
         {
@@ -72,18 +126,31 @@ public class GameController : BindableObject
             selectedType = "boolean";
         }
 
+        if (string.IsNullOrEmpty(SelectedNumQuestions))
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", "Enter Amount of Questions", "OK");
+            await Application.Current.MainPage.Navigation.PushAsync(new QuickSettingsPage());
+        }
         try
         {
             var url="";
 
             if (token == null)
             {
-                 url = $"https://opentdb.com/api.php?amount={SelectedNumQuestions}&type={selectedType}&difficulty={SelectedDifficulty.ToLower()}&category={selectedCategory}";
+                url = "https://opentdb.com/api.php?amount=" + SelectedNumQuestions
+                + "&type=" + selectedType
+                + "&difficulty=" + SelectedDifficulty.ToLower()
+                + "&category=" + selectedCategory;
             }
             else
             {
                 Debug.WriteLine("There was a token");
-                 url = $"https://opentdb.com/api.php?amount={SelectedNumQuestions}&type={selectedType}&difficulty={SelectedDifficulty.ToLower()}&category={selectedCategory}&token={token}";
+                url = "https://opentdb.com/api.php?amount=" + SelectedNumQuestions
+                +"&type=" + selectedType
+                +"&difficulty=" +  SelectedDifficulty.ToLower()
+                +"&category=" + selectedCategory
+                +"&token=" + token;
+                Debug.WriteLine(url);
             }
             
             Data = await _apiService.GetQuestionAsync(url);
@@ -102,10 +169,33 @@ public class GameController : BindableObject
         }
         catch (Exception ex) {
             // Handle case when no data is found
-            Debug.WriteLine("No True/false question found!");
+            Debug.WriteLine($"{ex}");
             
         } finally { IsLoading = false; }
     }
+
+    public async Task LoadQuestionsForPlayer(Player player)
+    {
+        string selectedCategory = player.SelectedCategory;
+        string selectedType = player.SelectedType;
+        string selectedDifficulty = player.SelectedDifficulty;
+
+        var url = $"https://opentdb.com/api.php?amount=1&type={selectedType}&difficulty={selectedDifficulty.ToLower()}&category={selectedCategory}";
+
+        // Fetch the questions from the API
+        var questionsResponse = await _apiService.GetQuestionAsync(url);
+
+        // Assign the results to the player's Questions property
+        if (questionsResponse != null && questionsResponse.results != null)
+        {
+            player.Questions = questionsResponse.results; 
+        }
+        else
+        {
+            player.Questions = new List<Result>(); // Fallback in case of no results
+        }
+    }
+
 
     public async Task<Dictionary<int, string>> GetCategoryAsync()
     {
