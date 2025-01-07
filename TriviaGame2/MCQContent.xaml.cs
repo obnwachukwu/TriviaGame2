@@ -1,3 +1,5 @@
+using System.Net;
+
 namespace TriviaGame2;
 
 public partial class MCQContent : ContentView
@@ -20,13 +22,13 @@ public partial class MCQContent : ContentView
 
     public string CurrentQuestion
     {
-        get { return _questions[_currentQuestionIndex].question; }
+        get { return WebUtility.HtmlDecode(_questions[_currentQuestionIndex].question); }
     }
 
-    public string OptionA => _questions[_currentQuestionIndex].incorrect_answers[0];
-    public string OptionB => _questions[_currentQuestionIndex].incorrect_answers[1];
-    public string OptionC => _questions[_currentQuestionIndex].incorrect_answers[2];
-    public string OptionD => _questions[_currentQuestionIndex].correct_answer;
+    public string OptionA => WebUtility.HtmlDecode(_questions[_currentQuestionIndex].incorrect_answers[0]);
+    public string OptionB => WebUtility.HtmlDecode(_questions[_currentQuestionIndex].incorrect_answers[1]);
+    public string OptionC => WebUtility.HtmlDecode(_questions[_currentQuestionIndex].incorrect_answers[2]);
+    public string OptionD => WebUtility.HtmlDecode(_questions[_currentQuestionIndex].correct_answer);
 
     private void DisplayCurrentQuestion()
     {

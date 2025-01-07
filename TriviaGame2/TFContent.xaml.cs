@@ -1,4 +1,6 @@
 
+using System.Net;
+
 namespace TriviaGame2;
 
 public partial class TFContent : ContentView
@@ -21,7 +23,7 @@ public partial class TFContent : ContentView
 
     public string CurrentQuestion
     {
-        get { return _questions[_currentQuestionIndex].question; }
+        get { return WebUtility.HtmlDecode(_questions[_currentQuestionIndex].question); }
     }
 
     private void DisplayCurrentQuestion()
