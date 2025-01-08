@@ -51,5 +51,6 @@ public partial class Settings : ContentPage
         {
             DisplayAlert("Notice", "No previous page available.", "OK");
         }
+
     }
 }

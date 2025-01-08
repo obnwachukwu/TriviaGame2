@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using System.Net;
+using System.Text.Json;
 
 namespace TriviaGame2;
 
@@ -8,6 +10,15 @@ public partial class MCQContent : ContentView
     private int _currentQuestionIndex = 0;
     private int _correctAnswers = 0;
     private int _totalQuestions;
+
+    // These variables are necessary to save the game state
+    private string SelectedCategory = "General Knowledge";  // Example
+    private string SelectedDifficulty = "Medium";  // Example
+    private string SelectedType = "MCQ";  // Example
+    private string SelectedNumPlayers = "1";  // Example
+    private string SelectedNumQuestions = "10";  // Example
+
+    private const string SavedGameKey = "SavedGame";
 
     public MCQContent(List<Result> questions)
     {
@@ -106,5 +117,66 @@ public partial class MCQContent : ContentView
     private async void OnBackButtonClicked(object sender, EventArgs e)
     {
         await Navigation.PushAsync(new QuickSettingsPage());
+    }
+
+    // Save the current game data
+    private void SaveGame(int score, int round)
+    {
+        var gameData = new
+        {
+            Score = score,
+            CurrentRound = round,
+            SelectedCategory,
+            SelectedDifficulty,
+            SelectedType,
+            SelectedNumPlayers,
+            SelectedNumQuestions
+        };
+
+        string gameDataJson = JsonSerializer.Serialize(gameData);
+        Preferences.Set(SavedGameKey, gameDataJson);
+        Debug.WriteLine("Game saved successfully.");
+    }
+
+    private async void OnSaveGameButtonClicked(object sender, EventArgs e)
+    {
+        try
+        {
+            await Navigation.PushAsync(new History());
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"Error navigating to history: {ex.Message}");
+            await DisplayAlert("Error", "Failed to navigate to History.", "OK");
+        }
+        // Save game data with current status
+        var gameData = new
+        {
+            Score = _correctAnswers,  // Replace with your actual score
+            CurrentRound = _currentQuestionIndex,  // Replace with your round status
+            SelectedCategory,
+            SelectedDifficulty,
+            SelectedType,
+            SelectedNumPlayers,
+            SelectedNumQuestions
+        };
+
+        // Serialize the game data to JSON
+        string gameDataJson = JsonSerializer.Serialize(gameData);
+
+        // Save the serialized game data to Preferences
+        Preferences.Set(SavedGameKey, gameDataJson);
+
+        // Optionally, display a message to confirm the game has been saved
+        var parentPage = this.Parent as Page; // Get the parent page
+        if (parentPage != null)
+        {
+            await parentPage.DisplayAlert("Game Saved", "Your game has been saved successfully.", "OK");
+        }
+    }
+
+    private async Task DisplayAlert(string v1, string v2, string v3)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -103,7 +103,7 @@ public class GameController : BindableObject
     {
         var selectedType = "";
         int categoryId;
-        int numQuestions;
+        int numQuestions = 0;
 
         IsLoading = true;
 

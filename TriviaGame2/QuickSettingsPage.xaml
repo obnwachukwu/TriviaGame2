@@ -30,38 +30,50 @@
         <!-- Main Content -->
         <ScrollView Grid.Row="1">
             <VerticalStackLayout Padding="20" Spacing="10" HorizontalOptions="Center">
+                <!-- Your game is saved message -->
+                <Label Text="*Your game is saved.*"
+                       FontAttributes="Italic"
+                       HorizontalOptions="Center" 
+                       VerticalOptions="CenterAndExpand"
+                       FontSize="14" />
+
+                <!-- You can continue playing message -->
+                <Label Text="*You can continue playing in the same mode by simply clicking 'Start Game' again.*"
+                       FontAttributes="Italic"
+                       HorizontalOptions="Center" 
+                       VerticalOptions="CenterAndExpand"
+                       FontSize="14" />
+
                 <!-- Logo Image -->
                 <Image Source="trivia.png" WidthRequest="250" HeightRequest="125" HorizontalOptions="Center" x:Name="logo" />
 
                 <!-- Number of Players Picker -->
                 <Picker x:Name="players" Title="Select Number of Players" WidthRequest="250" BackgroundColor="black"
-ItemsSource="{Binding NumPlayersOptions}"
-SelectedIndexChanged="OnNumPlayersSelected" />
-                
+                        ItemsSource="{Binding NumPlayersOptions}"
+                        SelectedIndexChanged="OnNumPlayersSelected" />
+
                 <!-- Number of Questions Picker -->
                 <Picker x:Name="questions" Title="Select Number of Questions" WidthRequest="250" BackgroundColor="black"
-ItemsSource="{Binding NumQuestionsOptions}"
-SelectedIndexChanged="OnNumQuestionsSelected" />
-                
+                        ItemsSource="{Binding NumQuestionsOptions}"
+                        SelectedIndexChanged="OnNumQuestionsSelected" />
+
                 <!-- Categories Picker -->
                 <Picker x:Name="category" Title="Select Category" WidthRequest="250" BackgroundColor="black"
-ItemsSource="{Binding CategoryOptions}"
-SelectedIndexChanged="OnCategorySelected" />
+                        ItemsSource="{Binding CategoryOptions}"
+                        SelectedIndexChanged="OnCategorySelected" />
 
                 <!-- Type Picker -->
                 <Picker x:Name="type" Title="Select Type" WidthRequest="250" BackgroundColor="black"
-ItemsSource="{Binding TypeOptions}"
-SelectedIndexChanged="OnTypeSelected" />
-                
+                        ItemsSource="{Binding TypeOptions}"
+                        SelectedIndexChanged="OnTypeSelected" />
+
                 <!-- Difficulty Picker -->
                 <Picker x:Name="difficulty" Title="Select Difficulty" WidthRequest="250" BackgroundColor="black"
-        ItemsSource="{Binding DifficultyOptions}"
-        SelectedIndexChanged="OnDifficultySelected" />
+                        ItemsSource="{Binding DifficultyOptions}"
+                        SelectedIndexChanged="OnDifficultySelected" />
 
                 <!-- Start Game Button -->
                 <Button Text="Start Game" x:Name="startButton" Clicked="OnStartGameButtonClicked" Padding="10" WidthRequest="250" CornerRadius="8" HorizontalOptions="Center" BackgroundColor="Violet" TextColor="White" />
-
-
             </VerticalStackLayout>
         </ScrollView>
     </Grid>

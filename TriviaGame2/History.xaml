@@ -1,12 +1,26 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TriviaGame2.History"
-             Title="History">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to History Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="Game History">
+    <StackLayout Padding="20" Spacing="15">
+        <!-- Saved Game Details Label -->
+        <Label x:Name="SavedGameLabel"
+               Text="No saved game found."
+               FontSize="20"
+               TextColor="Black"
+               HorizontalOptions="Center"
+               VerticalOptions="CenterAndExpand" />
+
+        <!-- Load Saved Game Button -->
+        <Button x:Name="LoadGameButton"
+                Text="Load Saved Game"
+                IsVisible="False"
+                Clicked="OnLoadSavedGameClicked" />
+
+        <!-- Clear Saved Game Button -->
+        <Button x:Name="ClearGameButton"
+                Text="Clear Saved Game"
+                IsVisible="False"
+                Clicked="OnClearSavedGameClicked" />
+    </StackLayout>
 </ContentPage>
